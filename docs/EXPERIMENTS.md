@@ -28,3 +28,5 @@ python3 bench.py run --config /path/to/reviewed-qualified-config.json --out resu
 ```
 
 The first four commands inspect/prepare or use the CPU fixture. The final command needs separate GPU/run approval and completed qualification, and launches no server. Generated sweep files require matching deployments/corpora. GPU/offload search, engine flags, workload-mixture generation, replicas and recovery are manual/pending. Fixed-length ignore_eos is stress only; use natural completion for task cost. Fit, generation and SLO qualification remain separate. See RUNBOOK.md and PLAN48H.md.
+
+Default native paths for E01/E03 now have configs/b200-sglang-native.proposed.json and configs/b200-vllm-native.proposed.json plus matching review-only deployment previews; see DEPLOYMENTS.md. These complete concrete command/config preparation, not on-node engine acceptance. Their different TP/EP/offload/scheduler settings are explicit operational-bundle confounders.

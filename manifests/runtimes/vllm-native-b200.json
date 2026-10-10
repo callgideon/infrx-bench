@@ -1,0 +1,33 @@
+{
+  "schema": "infrx-runtime-review/1",
+  "reviewed_utc": "2026-10-10T10:19:07Z",
+  "review_level": "DOCUMENTATION_AND_REGISTRY_METADATA_ONLY",
+  "registry": {
+    "repo": "vllm/vllm-openai",
+    "tag_observed": "nightly",
+    "index_digest": "sha256:2b3b0fe155011cbca03828e35fe1a483c1b5c9cf44c807cdee6ab51db734d553",
+    "platform_digest": "sha256:ec3c52f8b237ee44146a376c0eded3d375a52d782b95f5491c7f16d968382221",
+    "config_digest": "sha256:db9adc3390c9928577064de150da5cd19adb461a42674ef50b85ceaf5156e825",
+    "architecture": "amd64",
+    "os": "linux",
+    "created": "2026-10-10T05:32:13.02778738Z",
+    "layer_count": 40,
+    "image_layers_downloaded": false,
+    "runtime_qualified": false,
+    "source_commit": "7d0b4e57aac4c4323225b0eee9ae960ce75ffffe"
+  },
+  "sources": [
+    {
+      "url": "https://github.com/vllm-project/recipes/blob/8ed3d031cee2f8b7cfc5b701438aaacef6c69a18/models/deepseek-ai/DeepSeek-V4.1-Flash.yaml",
+      "commit": "8ed3d031cee2f8b7cfc5b701438aaacef6c69a18",
+      "sha256": "8d2a0dbcb9372f8fe1041acaeef6c85d7a37accd8d44ed969b0b96fdd5f035ff"
+    },
+    {
+      "url": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4.1-Flash/hw/b200.json",
+      "sha256": "235048e1f12cace10d9e1f77394306e8b8dfc39e019f1d937032e6d98e560327",
+      "snapshot_utc": "2026-10-10T10:19:07Z"
+    }
+  ],
+  "on_node_qualification": "NOT_RUN",
+  "note": "Source doc commit differs from runtime image source commit. Verify actual image flags/backend/fit on-node before use."
+}

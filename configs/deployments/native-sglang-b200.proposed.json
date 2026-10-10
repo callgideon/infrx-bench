@@ -1,0 +1,60 @@
+{
+  "schema": "infrx-deployment/1",
+  "id": "native-sglang-b200-default",
+  "status": "PROPOSED_ON_NODE_QUALIFICATION_REQUIRED",
+  "identity": {
+    "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "served_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "precision": "native"
+  },
+  "runtime": {
+    "engine": "sglang",
+    "image_digest": "lmsysorg/sglang@sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+    "source_commit": "da64c5cbb8cf6bfd39be19da43573fdfd484c43a",
+    "reviewed_utc": "2026-10-10T10:19:07Z",
+    "max_review_age_days": 7,
+    "support_evidence": [
+      "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V4_1.mdx",
+      "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx"
+    ]
+  },
+  "runtime_review_file": "manifests/runtimes/sglang-native-b200.json",
+  "topology": {
+    "node_gpu_count": 8,
+    "allocated_gpu_count": 4,
+    "tensor_parallel_size": 4,
+    "expert_parallel_size": 4,
+    "expert_parallel_enabled": true
+  },
+  "configured_context_max_tokens": 16384,
+  "engram_cpu_offload": false,
+  "scheduler": {
+    "max_running_requests": 256
+  },
+  "request_modes": {
+    "none": {
+      "reasoning_effort": "none",
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    }
+  },
+  "speculative_decoding": "disabled",
+  "language_model_only": false,
+  "proposed_overrides": [
+    "16384 configured context, not the recipe maximum; inspect this flag in the pinned image",
+    "Local verified read-only weights; offline environment; exact GPU selection and loopback published port",
+    "No speculative decoding or text-only optimization; text pilot only, no vision qualification"
+  ],
+  "required_checks": [
+    "GPU model/count/topology and peer access; no unrelated workload contention",
+    "Complete staged native file sizes/SHA-256 and license/access review",
+    "Actual pinned image/source, serve --help flags, tokenizer and reasoning parser",
+    "Measured fit with loader/workspace/graph/KV overhead, actual configured context and scheduler",
+    "Observed no-thinking semantics and bounded generation plus held-fixed canaries",
+    "Reconciled workload/SLO parameters, reservation end and durable export; explicit run approval",
+    "Upstream --trust-remote-code requires inspection of the immutable local model/tokenizer code",
+    "Engram remains GPU resident; do not enable host tables, DP attention, DeepEP or alternate backends implicitly"
+  ]
+}

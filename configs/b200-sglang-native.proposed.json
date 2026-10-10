@@ -1,0 +1,118 @@
+{
+  "schema": "infrx-bench/2",
+  "purpose": "b200_research",
+  "label": "PROPOSED native sglang default; runtime/hardware not qualified; all numeric workload/SLO values require reconciliation",
+  "identity": {
+    "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "served_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "precision": "native"
+  },
+  "runtime": {
+    "engine": "sglang",
+    "image_digest": "lmsysorg/sglang@sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+    "source_commit": "da64c5cbb8cf6bfd39be19da43573fdfd484c43a",
+    "reviewed_utc": "2026-10-10T10:19:07Z",
+    "max_review_age_days": 7,
+    "support_evidence": [
+      "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V4_1.mdx",
+      "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx"
+    ]
+  },
+  "endpoints": [
+    "http://127.0.0.1:18300"
+  ],
+  "seed": 20261010,
+  "budget_seconds": 3600,
+  "export_reserve_seconds": 1800,
+  "capabilities": {
+    "cache_salt_verified": false
+  },
+  "canary": {
+    "id": "canary",
+    "kind": "quality",
+    "requests": 10,
+    "duration_seconds": 120,
+    "timeout_seconds": 120,
+    "output_tokens": 256,
+    "concurrency": 1,
+    "slo": {
+      "ttft_seconds": 1,
+      "e2e_seconds": 2
+    },
+    "max_error_fraction": 0,
+    "telemetry_interval_seconds": 1,
+    "minimum_quality_fraction": 1,
+    "body": {
+      "reasoning_effort": "none",
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "minimum_slo_fraction": 1
+  },
+  "cells": [
+    {
+      "id": "native-sglang-natural-c1",
+      "kind": "load",
+      "requests": 300,
+      "duration_seconds": 60,
+      "timeout_seconds": 120,
+      "output_tokens": 256,
+      "concurrency": 1,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 5,
+      "body": {
+        "reasoning_effort": "none",
+        "chat_template_kwargs": {
+          "thinking": false
+        }
+      },
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot",
+      "configured_context_max_tokens": 16384,
+      "corpus_file": "REPLACE_WITH_TOKENIZER_CORPUS_2048.json",
+      "actual_input_token_target": 2048
+    }
+  ],
+  "arm": "native-sglang-baseline",
+  "arm_role": "baseline",
+  "qualification_file": "REPLACE_WITH_SGLANG_EXACT_QUALIFICATION_EVIDENCE.json",
+  "parameters_reconciled": false,
+  "end_utc": null,
+  "export_destination": null,
+  "export_retention_evidence": null,
+  "deployment_contract": {
+    "engine": "sglang",
+    "topology": {
+      "node_gpu_count": 8,
+      "allocated_gpu_count": 4,
+      "tensor_parallel_size": 4,
+      "expert_parallel_size": 4,
+      "expert_parallel_enabled": true
+    },
+    "configured_context_max_tokens": 16384,
+    "engram_cpu_offload": false,
+    "scheduler": {
+      "max_running_requests": 256
+    },
+    "speculative_decoding": "disabled",
+    "language_model_only": false,
+    "request_modes": {
+      "none": {
+        "reasoning_effort": "none",
+        "chat_template_kwargs": {
+          "thinking": false
+        }
+      }
+    }
+  }
+}

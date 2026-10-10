@@ -1,0 +1,60 @@
+{
+  "schema": "infrx-deployment/1",
+  "id": "native-vllm-b200-default",
+  "status": "PROPOSED_ON_NODE_QUALIFICATION_REQUIRED",
+  "identity": {
+    "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "served_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "precision": "native"
+  },
+  "runtime": {
+    "engine": "vllm",
+    "image_digest": "vllm/vllm-openai@sha256:ec3c52f8b237ee44146a376c0eded3d375a52d782b95f5491c7f16d968382221",
+    "source_commit": "7d0b4e57aac4c4323225b0eee9ae960ce75ffffe",
+    "reviewed_utc": "2026-10-10T10:19:07Z",
+    "max_review_age_days": 7,
+    "support_evidence": [
+      "https://github.com/vllm-project/recipes/blob/8ed3d031cee2f8b7cfc5b701438aaacef6c69a18/models/deepseek-ai/DeepSeek-V4.1-Flash.yaml",
+      "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4.1-Flash/hw/b200.json"
+    ]
+  },
+  "runtime_review_file": "manifests/runtimes/vllm-native-b200.json",
+  "topology": {
+    "node_gpu_count": 8,
+    "allocated_gpu_count": 2,
+    "tensor_parallel_size": 2,
+    "expert_parallel_size": null,
+    "expert_parallel_enabled": false
+  },
+  "configured_context_max_tokens": 16384,
+  "engram_cpu_offload": true,
+  "scheduler": {
+    "max_num_seqs": 128
+  },
+  "request_modes": {
+    "none": {
+      "reasoning_effort": "none",
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    }
+  },
+  "speculative_decoding": "disabled",
+  "language_model_only": false,
+  "proposed_overrides": [
+    "16384 configured context, not the recipe maximum; inspect this flag in the pinned image",
+    "Local verified read-only weights; offline environment; exact GPU selection and loopback published port",
+    "No speculative decoding or text-only optimization; text pilot only, no vision qualification"
+  ],
+  "required_checks": [
+    "GPU model/count/topology and peer access; no unrelated workload contention",
+    "Complete staged native file sizes/SHA-256 and license/access review",
+    "Actual pinned image/source, serve --help flags, tokenizer and reasoning parser",
+    "Measured fit with loader/workspace/graph/KV overhead, actual configured context and scheduler",
+    "Observed no-thinking semantics and bounded generation plus held-fixed canaries",
+    "Reconciled workload/SLO parameters, reservation end and durable export; explicit run approval",
+    "Pinned host DRAM/UVA Engram capacity, CPU/NUMA placement and transfer cost measured; no expert/KV offload assumed",
+    "Rust frontend SSE/model/usage semantics and native sparse-attention/FP8-KV backend inspected"
+  ]
+}

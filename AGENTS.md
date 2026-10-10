@@ -6,6 +6,8 @@ Prepare reproducible inference benchmarks for DeepSeek-V4.1-Flash on a reserved 
 
 Current preparation includes CPU-tested transport, scheduling, bounded asset staging, deterministic task import, per-configuration quality gates, resume identity, export verification and proposed experiment plans. Device/runtime qualification and GPU measurements are separate work. No pending device connection is required to improve or publish this preparation.
 
+Native B200 default proposals live in configs/deployments with matched configs/b200-{engine}-native.proposed.json. Read docs/DEPLOYMENTS.md. The deployment module only renders review commands; it has no execute action. SGLang TP4/EP4 and vLLM TP2/Engram CPU offload are different bundles, and both remain unqualified on-node.
+
 ## Execution boundaries
 
 - Preparation, inspection and tests do not authorize GPU runs, model-weight downloads, launching/stopping services, paid infrastructure, account changes or package installation on remote machines. Obtain task-specific authorization for those actions. Honor any current pause; do not troubleshoot remote devices as an incidental prerequisite.

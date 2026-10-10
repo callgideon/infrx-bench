@@ -54,6 +54,9 @@ def qualification(frozen):
     runtime = artifacts["runtime"]
     if runtime.get("runtime") != cfg["runtime"] or runtime.get("inspection_status") != "VERIFIED":
         raise ValueError("Actual runtime inspection missing or mismatched")
+    deployment_contract=cfg.get("deployment_contract")
+    if deployment_contract is not None and runtime.get("deployment_contract")!=deployment_contract:
+        raise ValueError("Actual topology/offload/scheduler differs from proposed deployment contract")
     modes = runtime.get("request_modes",{})
     for cell in cfg["cells"]:
         thinking = {key:value for key,value in cell.get("body",{}).items() if key != "ignore_eos"}
@@ -76,6 +79,8 @@ def qualification(frozen):
     if cfg["purpose"] == "b200_research":
         if hardware.get("gpu_model") != "NVIDIA B200" or hardware.get("node_gpu_count") != 8 or hardware.get("allocated_gpu_count") not in (2,4,8):
             raise ValueError("Qualified reserved B200 deployment required")
+        if deployment_contract is not None and hardware.get("allocated_gpu_count")!=deployment_contract["topology"]["allocated_gpu_count"]:
+            raise ValueError("Observed GPU allocation differs from deployment contract")
         if cfg["arm"] == "native-vllm-text-only" and runtime.get("language_model_only_verified") is not True:
             raise ValueError("Text-only runtime flag remains unqualified")
     return {"fingerprint":harness.digest(receipt), "hardware":hardware,

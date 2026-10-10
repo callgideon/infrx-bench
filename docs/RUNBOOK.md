@@ -17,6 +17,8 @@ Select tracks from [EXPERIMENTS.md](EXPERIMENTS.md). Freeze workload mixture, ac
 
 Use the [asset workflow](ASSETS.md) to review pinned model/tokenizer/dataset manifests. Asset preflight checks local capacity and manifest consistency; it does not prove remote download access, fit or engine support. Large downloads require separate explicit execution authorization. Download receipts feed tokenizer preparation and weight evidence.
 
+Use [DEPLOYMENTS.md](DEPLOYMENTS.md) for the two default native engine specifications, local command previews and matching benchmark files. Preview constructs commands only. Runtime inspection must record the same deployment_contract and observed GPU allocation before collection.
+
 ## 3. Qualify one exact deployment
 
 On an already approved and authenticated executor, collect read-only inventory:

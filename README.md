@@ -7,7 +7,8 @@ Start locally with Python 3.10+ and the standard library. No package installatio
 ```sh
 python3 -m unittest discover -s tests -v
 python3 bench.py rehearse --out results/cpu-check
-python3 bench.py plan --config configs/b200-screen.proposed.json
+python3 bench.py plan --config configs/b200-sglang-native.proposed.json
+python3 bench.py plan --config configs/b200-vllm-native.proposed.json
 python3 bench.py sweep --config configs/context-thinking-sweep.proposed.json --out results/context-plans
 ```
 
@@ -17,6 +18,7 @@ The rehearsal starts a controlled loopback SSE fixture and collects six pilot co
 |---|---|
 | [AGENTS.md](AGENTS.md) | Shared agent instructions; [CLAUDE.md](CLAUDE.md) imports them |
 | [Runbook](docs/RUNBOOK.md) | Ordered preparation, qualification, collection, resume and export |
+| [Native deployment proposals](docs/DEPLOYMENTS.md) | SGLang TP4/EP4 and vLLM TP2/offload command previews with matched benchmark templates |
 | [Experiment catalog](docs/EXPERIMENTS.md) | Twelve tracks, hypotheses, axes, controls, readiness and commands |
 | [Parameters](docs/PARAMETERS.md) | Workload/SLO contracts and acceptance rules |
 | [48-hour proposal](docs/PLAN48H.md) | Priorities, budgets and stop gates |

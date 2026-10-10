@@ -1,0 +1,33 @@
+{
+  "schema": "infrx-runtime-review/1",
+  "reviewed_utc": "2026-10-10T10:19:07Z",
+  "review_level": "DOCUMENTATION_AND_REGISTRY_METADATA_ONLY",
+  "registry": {
+    "repo": "lmsysorg/sglang",
+    "tag_observed": "dev-dsv41",
+    "index_digest": "sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+    "platform_digest": "sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+    "config_digest": "sha256:00b8215c42c516f8f4737ed2d38bd2794ef065484407ff8a637b6e251699d172",
+    "architecture": "amd64",
+    "os": "linux",
+    "created": "2026-09-11T18:28:41.460185504Z",
+    "layer_count": 70,
+    "image_layers_downloaded": false,
+    "runtime_qualified": false,
+    "source_commit": "da64c5cbb8cf6bfd39be19da43573fdfd484c43a"
+  },
+  "sources": [
+    {
+      "url": "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V4_1.mdx",
+      "commit": "6fc8d9da3288e9710a6f9a1f59503cacf8a984f0",
+      "sha256": "6cac05cca1dd06689c20271bf47575298bed8affc186ce8f8e8b0168fe0ca94c"
+    },
+    {
+      "url": "https://github.com/sgl-project/sglang/blob/6fc8d9da3288e9710a6f9a1f59503cacf8a984f0/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx",
+      "commit": "6fc8d9da3288e9710a6f9a1f59503cacf8a984f0",
+      "sha256": "81e9a655764cec89ed75a7bfca1b08e420988e2d569ecd19c74350aef3d906db"
+    }
+  ],
+  "on_node_qualification": "NOT_RUN",
+  "note": "Source doc commit differs from runtime image source commit. Verify actual image flags/backend/fit on-node before use."
+}
