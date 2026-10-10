@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-08",
+  "reservation": {
+    "start": "2026-10-10T11:30:00Z",
+    "end": "2026-10-12T11:30:00Z",
+    "nodes": 1,
+    "gpus": 8,
+    "gpu": "B200",
+    "hourly_usd": null,
+    "window_source": "Historical example only; configure current window explicitly in experiment JSON"
+  },
+  "source_commit": "28574da0e91c7b90b404cc6296baadf634399a3d",
+  "arms": {
+    "native-throughput": {
+      "engine": "sglang",
+      "status": "upstream_recipe_local_not_run",
+      "hardware": "B200",
+      "gpus": 4,
+      "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+      "served_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "precision": "native mixed precision; MXFP4 routed experts and FP8 dense components",
+      "license": "mit",
+      "minimum_free_disk_gib": 650,
+      "image_tag": "lmsysorg/sglang:dev-dsv41",
+      "image_digest": "lmsysorg/sglang@sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+      "image_provenance": {
+        "source": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/dev-dsv41",
+        "checked_utc": "2026-10-08 02:40-02:42 UTC",
+        "resolved_by": "Read-only public registry metadata",
+        "linux_amd64_digest": "sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+        "runtime_qualification": "NOT_RUN"
+      },
+      "flags": [
+        "--trust-remote-code",
+        "--tp",
+        "4",
+        "--ep-size",
+        "4",
+        "--max-running-requests",
+        "256",
+        "--reasoning-parser",
+        "auto",
+        "--tool-call-parser",
+        "auto"
+      ],
+      "sources": [
+        "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+        "https://github.com/sgl-project/sglang/blob/9a21d8295822105a43e43f6e8d446158b4725aff/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx"
+      ]
+    },
+    "native-latency": {
+      "inherits": "native-throughput",
+      "flags": [
+        "--trust-remote-code",
+        "--tp",
+        "4",
+        "--ep-size",
+        "4",
+        "--mem-fraction-static",
+        "0.8",
+        "--speculative-algorithm",
+        "DSPARK",
+        "--speculative-dspark-block-size",
+        "5",
+        "--cuda-graph-max-bs-decode",
+        "64",
+        "--reasoning-parser",
+        "auto",
+        "--tool-call-parser",
+        "auto"
+      ]
+    },
+    "nvfp4-b200": {
+      "engine": "sglang",
+      "status": "experimental_hardware_gate",
+      "hardware": "B200",
+      "gpus": 4,
+      "repo": "nvidia/DeepSeek-V4.1-Flash-NVFP4",
+      "revision": "3431dde3247c13b5957f682b1e3c6fcae2566079",
+      "served_model": "nvidia/DeepSeek-V4.1-Flash-NVFP4",
+      "precision": "NVFP4 W4A4 routed experts; excluded components retain source precision",
+      "license": "mit",
+      "minimum_free_disk_gib": 670,
+      "image_tag": "lmsysorg/sglang:dev-cu13-dsv41",
+      "image_digest": "lmsysorg/sglang@sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+      "image_provenance": {
+        "source": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/dev-cu13-dsv41",
+        "checked_utc": "2026-10-08 02:40-02:42 UTC",
+        "resolved_by": "Read-only public registry metadata",
+        "linux_amd64_digest": "sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+        "runtime_qualification": "NOT_RUN"
+      },
+      "expected_engine_commit": "da64c5cbb8cf6bfd39be19da43573fdfd484c43a",
+      "flags": [
+        "--tp",
+        "4",
+        "--context-length",
+        "1048576",
+        "--reasoning-parser",
+        "deepseek-v41",
+        "--tool-call-parser",
+        "deepseekv41",
+        "--chunked-prefill-size",
+        "4096",
+        "--max-running-requests",
+        "16",
+        "--log-level",
+        "info"
+      ],
+      "reason": "NVIDIA validates four GB300 GPUs; B200 loading, kernels, generation and quality require local qualification. DSpark not validated for this export.",
+      "sources": [
+        "https://huggingface.co/nvidia/DeepSeek-V4.1-Flash-NVFP4/blob/3431dde3247c13b5957f682b1e3c6fcae2566079/README.md"
+      ]
+    },
+    "fp8": {
+      "status": "blocked",
+      "reason": "No verified official uniform FP8/NVFP8 export or supported V4.1 requantization recipe. Native mixed precision is a separate arm; do not relabel it FP8."
+    },
+    "tensorrt-llm": {
+      "status": "blocked",
+      "reason": "Exact DeepseekV41ForCausalLM support not established; V4.1 support issue remains open. SGLang's TRT-LLM kernels are not this engine.",
+      "sources": [
+        "https://github.com/NVIDIA/TensorRT-LLM/issues/19481",
+        "https://nvidia.github.io/TensorRT-LLM/models/supported-models.html"
+      ]
+    },
+    "qwen-smoke-vllm031": {
+      "inherits": "qwen-smoke",
+      "image_tag": "vllm/vllm-openai:v0.31.0",
+      "image_digest": "vllm/vllm-openai@sha256:a4a4c0437bf7240089da5f08aa370c4aee17ae5290f7a3b468825ee26c4c3a6b",
+      "reason": "Historical runtime candidate; exact device/runtime loading and generation require fresh qualification.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-2B",
+        "https://hub.docker.com/r/vllm/vllm-openai/tags"
+      ]
+    },
+    "qwen-smoke-sglang": {
+      "inherits": "qwen-smoke",
+      "engine": "sglang",
+      "image_tag": "lmsysorg/sglang:dev-dsv41",
+      "image_digest": "lmsysorg/sglang@sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+      "image_provenance": {
+        "source": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/dev-dsv41",
+        "checked_utc": "2026-10-08 02:40-02:42 UTC",
+        "resolved_by": "Read-only public registry metadata",
+        "linux_amd64_digest": "sha256:c1633485e2ef3a8562fc93b2e3b686abb31c4499300bf5ce13ee5d491b65c386",
+        "runtime_qualification": "NOT_RUN"
+      },
+      "flags": [
+        "--tp",
+        "1",
+        "--dtype",
+        "bfloat16",
+        "--context-length",
+        "8192",
+        "--max-running-requests",
+        "8",
+        "--mem-fraction-static",
+        "0.70"
+      ],
+      "reason": "Optional actual SGLang launcher rehearsal using the same preview image family needed for B200. Qwen's official card lists SGLang, but this exact image/L40S recipe is NOT RUN; resolve digest, inspect actual --help and qualify loading/generation. No backend overrides or stock-release compatibility inference.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-2B",
+        "https://github.com/sgl-project/sglang/blob/main/docs/cookbook/autoregressive/Qwen/Qwen3.5.mdx"
+      ]
+    },
+    "qwen-smoke": {
+      "engine": "vllm",
+      "status": "pretest_only_local_not_run",
+      "hardware": "confirmed_exclusive_test_gpu",
+      "gpus": 1,
+      "repo": "Qwen/Qwen3.5-2B",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "served_model": "Qwen/Qwen3.5-2B",
+      "precision": "BF16",
+      "license": "apache-2.0",
+      "minimum_free_disk_gib": 12,
+      "image_tag": "vllm/vllm-openai:nightly-a8d1aa9c99b8698a2a78b611b7a10c30e6b3995b",
+      "image_digest": "vllm/vllm-openai@sha256:4cbfd34aac145fd1870381c030131c7f868fcad45448f401ecdb5fd4ed020b42",
+      "flags": [
+        "--dtype",
+        "bfloat16",
+        "--max-model-len",
+        "32768",
+        "--max-num-seqs",
+        "8",
+        "--gpu-memory-utilization",
+        "0.70"
+      ],
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-2B",
+        "models/qwen35-2b/serve.sh"
+      ],
+      "reason": "Existing repo pinned vLLM image; lower memory limit is a new smoke configuration. Host support and idle GPU must be confirmed. This proves the harness, not DeepSeek/B200 performance."
+    }
+  },
+  "reference_images": {
+    "qwen_official_recommended_latest": {
+      "image": "lmsysorg/sglang@sha256:b1259f3ea3275f66237c498ea388919729018bc9f01c3d638391e06e2cf3f469",
+      "linux_amd64_digest": "sha256:2dbe4c7f53230b09aaa8fa41891c13c51d9d2e253f486a70822aaf08783fff75",
+      "source": "https://hub.docker.com/v2/repositories/lmsysorg/sglang/tags/latest",
+      "checked_utc": "2026-10-08 02:40-02:42 UTC",
+      "runtime_qualification": "NOT_RUN",
+      "selected": false,
+      "reason": "Recorded comparator only; optional Qwen SGLang rehearsal uses the same pinned preview image family as B200, not an unrecorded runtime swap."
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "infrx-bench/2",
+  "purpose": "b200_research",
+  "label": "PROPOSED screen only; all numeric settings require workload reconciliation; no AWS execution authorization",
+  "identity": {
+    "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "revision": "2cba9e42aa026125f3ed06c6d98c1db82f7ca027",
+    "served_model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "precision": "native"
+  },
+  "runtime": {
+    "engine": "sglang",
+    "image_digest": "lmsysorg/sglang@sha256:4a5d132a06a77c8331e15845f2e925adc788b00105097ad55409afa3f4fa4860",
+    "reviewed_utc": "2026-10-08T02:42:00Z",
+    "max_review_age_days": 7,
+    "support_evidence": [
+      "https://github.com/sgl-project/sglang/blob/main/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V4_1.mdx"
+    ],
+    "qualification": "NOT_RUN"
+  },
+  "endpoints": [
+    "http://127.0.0.1:18300"
+  ],
+  "seed": 20261010,
+  "budget_seconds": 3600,
+  "export_reserve_seconds": 1800,
+  "capabilities": {
+    "cache_salt_verified": false
+  },
+  "canary": {
+    "id": "canary",
+    "kind": "quality",
+    "requests": 10,
+    "duration_seconds": 120,
+    "timeout_seconds": 120,
+    "output_tokens": 256,
+    "concurrency": 1,
+    "slo": {
+      "ttft_seconds": 1,
+      "e2e_seconds": 2
+    },
+    "max_error_fraction": 0,
+    "telemetry_interval_seconds": 1,
+    "minimum_quality_fraction": 1,
+    "body": {
+      "reasoning_effort": "none"
+    },
+    "minimum_slo_fraction": 1
+  },
+  "cells": [
+    {
+      "id": "proposed-baseline-c1",
+      "kind": "load",
+      "requests": 300,
+      "duration_seconds": 60,
+      "timeout_seconds": 120,
+      "output_tokens": 256,
+      "concurrency": 1,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 5,
+      "body": {
+        "reasoning_effort": "none",
+        "ignore_eos": true
+      },
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot",
+      "configured_context_max_tokens": 16384,
+      "corpus_file": "REPLACE_WITH_TOKENIZER_CORPUS_2048.json",
+      "actual_input_token_target": 2048
+    }
+  ],
+  "arm": "native-sglang-baseline",
+  "arm_role": "baseline",
+  "qualification_file": "REPLACE_WITH_EXACT_QUALIFICATION_EVIDENCE.json",
+  "parameters_reconciled": false,
+  "end_utc": null,
+  "export_destination": null,
+  "export_retention_evidence": null,
+  "sweep": {
+    "context_pairs": [
+      {
+        "actual_input_tokens": 2048,
+        "configured_max_tokens": 16384,
+        "corpus_file": "REPLACE_CORPUS_2048.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX16384.json"
+      },
+      {
+        "actual_input_tokens": 8192,
+        "configured_max_tokens": 16384,
+        "corpus_file": "REPLACE_CORPUS_8192.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX16384.json"
+      },
+      {
+        "actual_input_tokens": 8192,
+        "configured_max_tokens": 65536,
+        "corpus_file": "REPLACE_CORPUS_8192.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX65536.json"
+      },
+      {
+        "actual_input_tokens": 32768,
+        "configured_max_tokens": 65536,
+        "corpus_file": "REPLACE_CORPUS_32768.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX65536.json"
+      },
+      {
+        "actual_input_tokens": 65536,
+        "configured_max_tokens": 131072,
+        "corpus_file": "REPLACE_CORPUS_65536.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX131072.json"
+      },
+      {
+        "actual_input_tokens": 131072,
+        "configured_max_tokens": 262144,
+        "corpus_file": "REPLACE_CORPUS_131072.json",
+        "qualification_file": "REPLACE_QUALIFICATION_MAX262144.json"
+      }
+    ],
+    "thinking_modes": [
+      {
+        "name": "none",
+        "body": {
+          "reasoning_effort": "none"
+        },
+        "output_tokens": 512
+      }
+    ],
+    "pending_thinking_modes": "Add only body mappings verified in the exact runtime inspection artifact; proposed output caps 512/2048/8192"
+  }
+}

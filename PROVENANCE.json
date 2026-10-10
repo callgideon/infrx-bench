@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "upstream": "https://github.com/callgideon/model-inference",
+  "base_commit": "a6446df7c087fa010ff37137f2b2375f5710fff0",
+  "base_files": ["benchmarks/b200/harness.py", "benchmarks/b200/node.py", "benchmarks/b200/corpus.py", "benchmarks/b200/collect.py", "benchmarks/b200/test_cpu.py", "benchmarks/b200/cases.json", "benchmarks/b200/matrix.json"],
+  "additional_reviewed_source": "ea64dc831aefd1da5dd8d101e94618b0ec92f4a0",
+  "additional_source_use": "Design references only. Destructive setup, silent export, fallback orchestration and automatic installations not imported.",
+  "qualification": "Historical CPU evidence belongs to upstream. This checkout records its own tests. No DeepSeek/B200 runtime qualification is inherited."
+}

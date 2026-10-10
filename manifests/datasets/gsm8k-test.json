@@ -1,0 +1,15 @@
+{
+  "schema":"infrx-assets/1",
+  "kind":"dataset",
+  "repo":"openai/grade-school-math",
+  "revision":"3101c7d5072418e28b9008a6636bde82a006892c",
+  "access":"public-ungated",
+  "license":"MIT",
+  "license_url":"https://github.com/openai/grade-school-math/blob/3101c7d5072418e28b9008a6636bde82a006892c/LICENSE",
+  "license_review_required":true,
+  "split":"test",
+  "format":"gsm8k-jsonl",
+  "total_bytes":749738,
+  "purpose":"Optional arithmetic/instruction-following track; not representative developer traffic and not an official GSM8K evaluation",
+  "files":[{"path":"test.jsonl","bytes":749738,"sha256":"3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14","url":"https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/grade_school_math/data/test.jsonl"}]
+}

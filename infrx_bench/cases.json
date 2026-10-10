@@ -1,0 +1,12 @@
+[
+  {"id":"sum","prompt":"Return only a JSON array of the return values of Python sum for these inputs: [], [1,2,3], [-3,3], [7].","expected":[0,6,0,7]},
+  {"id":"slice","prompt":"Return only a JSON array containing these Python expression results in order: list(range(5))[::-1], 'abcdef'[1:5:2], [1,2,3][3:].","expected":[[4,3,2,1,0],"bd",[]]},
+  {"id":"boolean","prompt":"Return only a JSON array of these Python bool results in order: bool([]), bool('0'), bool(0), bool([False]). Use JSON true and false.","expected":[false,true,false,true]},
+  {"id":"binary","prompt":"Return only a JSON array of the decimal values of these binary strings in order: 0, 1, 101, 1111, 100000.","expected":[0,1,5,15,32]},
+  {"id":"dedupe","prompt":"Return only a JSON array after deduplicating [3,1,3,2,1,4] while preserving the first occurrence order.","expected":[3,1,2,4]},
+  {"id":"trace","prompt":"Python starts x=1. For i in range(4), do x=x*2+i. Return only the final integer x as JSON.","expected":27},
+  {"id":"sort","prompt":"Return only a JSON array of these strings sorted by length ascending then lexicographically ascending: ['bbb','a','cc','b','aa'].","expected":["a","b","aa","cc","bbb"]},
+  {"id":"boundary","prompt":"A binary search lower_bound returns the first index whose value is at least the target, or the array length. For array [1,3,3,7], return only a JSON array of the lower_bound results for targets [0,1,3,4,8].","expected":[0,0,1,3,4]},
+  {"id":"unicode","prompt":"Return only a JSON array of the lengths of these Python strings in Unicode code points: '', 'abc', 'é', '🙂🙂'.","expected":[0,3,1,2]},
+  {"id":"json","prompt":"Return only the JSON object mapping keys a, b, c to the Python results of 5//2, 5%2, and 2**3 respectively.","expected":{"a":2,"b":1,"c":8}}
+]

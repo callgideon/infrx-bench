@@ -1,0 +1,232 @@
+{
+  "schema": "infrx-bench/2",
+  "purpose": "cpu_mock",
+  "label": "Sanitized functional fixture; numeric settings are test-only",
+  "identity": {
+    "repo": "fixture/model",
+    "revision": "fixture-only",
+    "served_model": "fixture/model",
+    "precision": "CPU fixture"
+  },
+  "runtime": {
+    "engine": "fixture"
+  },
+  "endpoints": [
+    "http://127.0.0.1:18300"
+  ],
+  "seed": 20261010,
+  "budget_seconds": 240,
+  "export_reserve_seconds": 10,
+  "capabilities": {
+    "cache_salt_verified": true
+  },
+  "canary": {
+    "id": "canary",
+    "kind": "quality",
+    "requests": 10,
+    "duration_seconds": 0.15,
+    "timeout_seconds": 0.4,
+    "output_tokens": 32,
+    "concurrency": 1,
+    "slo": {
+      "ttft_seconds": 1,
+      "e2e_seconds": 2
+    },
+    "max_error_fraction": 0,
+    "telemetry_interval_seconds": 0.05,
+    "minimum_quality_fraction": 1,
+    "minimum_slo_fraction": 1
+  },
+  "cells": [
+    {
+      "id": "closed-c1",
+      "kind": "load",
+      "requests": 10,
+      "duration_seconds": 0.15,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 1,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    },
+    {
+      "id": "closed-c2",
+      "kind": "load",
+      "requests": 10,
+      "duration_seconds": 0.15,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    },
+    {
+      "id": "open-rate",
+      "kind": "load",
+      "requests": 10,
+      "duration_seconds": 0.2,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "arrival_rate": 20,
+      "queue_metric": "fixture_requests_waiting",
+      "minimum_stability_seconds": 0.1,
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    },
+    {
+      "id": "warm",
+      "kind": "load",
+      "requests": 10,
+      "duration_seconds": 0.15,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "cache_protocol": "warm-replay",
+      "prompts": [
+        "Describe a safe bounded queue in one sentence."
+      ],
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    },
+    {
+      "id": "sessions",
+      "kind": "sessions",
+      "requests": 4,
+      "duration_seconds": 0.4,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "cache_protocol": "session-prefix",
+      "queue_policy": "prefix_group",
+      "routing": "session_affinity",
+      "batch_window_seconds": 0.01,
+      "sessions": [
+        {
+          "id": "s1",
+          "tenant": "a",
+          "prefix_group": "shared",
+          "turns": [
+            {
+              "content": "Remember the code 42."
+            },
+            {
+              "content": "What is the code?",
+              "think_seconds": 0.01
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "tenant": "b",
+          "prefix_group": "shared",
+          "turns": [
+            {
+              "content": "Remember the code 7."
+            },
+            {
+              "content": "What is the code?",
+              "think_seconds": 0.01
+            }
+          ]
+        }
+      ],
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    },
+    {
+      "id": "tenant-isolation",
+      "kind": "sessions",
+      "requests": 2,
+      "duration_seconds": 0.2,
+      "timeout_seconds": 0.4,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 0.05,
+      "cache_protocol": "tenant-isolation",
+      "sessions": [
+        {
+          "id": "tenant-a",
+          "tenant": "a",
+          "turns": [
+            {
+              "content": "Return a short answer."
+            }
+          ]
+        },
+        {
+          "id": "tenant-b",
+          "tenant": "b",
+          "turns": [
+            {
+              "content": "Return a short answer."
+            }
+          ]
+        }
+      ],
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot"
+    }
+  ],
+  "arm": "cpu-fixture",
+  "arm_role": "mock"
+}

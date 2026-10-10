@@ -1,0 +1,9 @@
+[project]
+name = "infrx-bench"
+version = "0.2.0"
+description = "Bounded raw inference evidence and cache-aware session experiments"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.unittest]
+start-directory = "tests"

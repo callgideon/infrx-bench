@@ -1,0 +1,18 @@
+{
+  "schema": "infrx-arm-plan/1",
+  "status": "PROPOSED_NOT_EXECUTABLE",
+  "numeric_parameters": "Require conversation reconciliation; screen selectively, never full Cartesian product",
+  "gpu_counts_to_screen_if_supported": [2, 4, 8],
+  "context_axes": ["actual tokenizer/server input tokens", "configured context maximum"],
+  "thinking_axes": ["reviewed no-thinking", "reviewed thinking with matched output cap"],
+  "arms": [
+    {"id": "native-sglang-baseline", "engine": "sglang", "precision": "native mixed source formats", "status": "CURRENT_SUPPORT_REVIEW_AND_B200_SMOKE_REQUIRED"},
+    {"id": "native-sglang-session-cache", "parent": "native-sglang-baseline", "changes": ["endpoint affinity", "FCFS versus bounded prefix grouping", "admission window"], "status": "VERIFIED_ENGINE_CACHE_AND_QUEUE_COUNTERS_REQUIRED"},
+    {"id": "native-vllm-baseline", "engine": "vllm", "precision": "native mixed source formats", "support_evidence": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4.1-Flash", "status": "EXACT_IMAGE_AND_B200_SMOKE_REQUIRED", "fit_hypothesis": "Review documented Blackwell TP2 Engram CPU offload and TP4 interactive configurations"},
+    {"id": "native-vllm-text-only", "parent": "native-vllm-baseline", "changes": ["--language-model-only if supported and absent from baseline"], "status": "EXACT_BUILD_FLAG_AND_MATCHED_QUALITY_REQUIRED", "stored_vision_bytes_are_not_vram_savings": true},
+    {"id": "nvfp4-candidate", "model_repo": "nvidia/DeepSeek-V4.1-Flash-NVFP4", "revision": "3431dde3247c13b5957f682b1e3c6fcae2566079", "status": "SEPARATE_B200_RUNTIME_AND_QUALITY_QUALIFICATION_REQUIRED", "smaller_than_native_assumed": false},
+    {"id": "nvfp8-candidate", "status": "BLOCKED_EXACT_CHECKPOINT_AND_V4_1_FLASH_SUPPORT_UNVERIFIED"},
+    {"id": "trtllm-engine", "status": "BLOCKED_V4_1_FLASH_ENGINE_SUPPORT_UNVERIFIED"},
+    {"id": "k3", "status": "DEFERRED_MODEL_IDENTITY_AND_OBJECTIVE_UNCONFIRMED"}
+  ]
+}

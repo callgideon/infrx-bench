@@ -1,0 +1,106 @@
+{
+  "schema": "infrx-bench/2",
+  "purpose": "local_rehearsal",
+  "label": "PROPOSED bounded Thor proxy rehearsal; fill actual device/model/runtime identity before execution",
+  "identity": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "served_model": "REPLACE_WITH_ACTUAL_SERVED_ID",
+    "precision": "bf16-proxy"
+  },
+  "runtime": {
+    "engine": "external_openai",
+    "image_digest": "REPLACE_WITH_VERIFIED_ARM64_IMAGE_DIGEST_OR_SOURCE_COMMIT",
+    "source_commit": "",
+    "reviewed_utc": "2026-10-10T00:00:00Z",
+    "max_review_age_days": 7,
+    "support_evidence": [
+      "REPLACE_WITH_ACTUAL_THOR_RUNTIME_SUPPORT_AND_PREFLIGHT_RECEIPT"
+    ]
+  },
+  "endpoints": [
+    "http://127.0.0.1:18300"
+  ],
+  "seed": 20261010,
+  "budget_seconds": 300,
+  "export_reserve_seconds": 0,
+  "capabilities": {
+    "cache_salt_verified": false
+  },
+  "canary": {
+    "id": "canary",
+    "kind": "quality",
+    "requests": 10,
+    "duration_seconds": 30,
+    "timeout_seconds": 20,
+    "output_tokens": 256,
+    "concurrency": 1,
+    "slo": {
+      "ttft_seconds": 1,
+      "e2e_seconds": 2
+    },
+    "max_error_fraction": 0,
+    "telemetry_interval_seconds": 1,
+    "minimum_quality_fraction": 1,
+    "minimum_slo_fraction": 1
+  },
+  "cells": [
+    {
+      "id": "local-latency-c1",
+      "kind": "load",
+      "requests": 4,
+      "duration_seconds": 5,
+      "timeout_seconds": 20,
+      "output_tokens": 32,
+      "concurrency": 1,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 1,
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot",
+      "configured_context_max_tokens": 16384,
+      "body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      }
+    },
+    {
+      "id": "local-load-c2",
+      "kind": "load",
+      "requests": 4,
+      "duration_seconds": 5,
+      "timeout_seconds": 20,
+      "output_tokens": 32,
+      "concurrency": 2,
+      "slo": {
+        "ttft_seconds": 1,
+        "e2e_seconds": 2
+      },
+      "max_error_fraction": 0,
+      "telemetry_interval_seconds": 1,
+      "minimum_slo_fraction": 1,
+      "thinking_mode": "none",
+      "sampling": {
+        "temperature": 0
+      },
+      "evidence_role": "pilot",
+      "configured_context_max_tokens": 16384,
+      "body": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      }
+    }
+  ],
+  "arm": "qwen-proxy",
+  "arm_role": "proxy",
+  "qualification_file": "REPLACE_WITH_EXACT_QUALIFICATION_EVIDENCE.json"
+}

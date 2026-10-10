@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+results/
+*.tar.gz
+*.tar.gz.manifest.json
+.env
+assets/
+data/private/
+data/downloads/
+*.part
+CLAUDE.local.md
+AGENTS.local.md
